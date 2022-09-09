@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/style1"
+
+        android:title="Streets">
+    </item>
+    <item
+        android:id="@+id/style2"
+
+        android:title="Dark">
+    </item>
+    <item
+        android:id="@+id/style3"
+
+        android:title="Traffic">
+    </item>
+    <item
+        android:id="@+id/style4"
+
+        android:title="Outdoor">
+    </item>
+
+</menu>
