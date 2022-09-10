@@ -24,6 +24,9 @@ import com.mapbox.maps.plugin.annotation.generated.*
 class MainActivity : AppCompatActivity() {
     var mapView : MapView? = null
     var permissionManager:PermissionsManager? = null
+    var annotationApi: AnnotationPlugin? = null
+    var isPointAnno : Boolean = false
+    var isCircleAnno : Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -62,41 +65,44 @@ class MainActivity : AppCompatActivity() {
                 .zoom(14.0)
                 .build()
         )
+        annotationApi = mapView?.annotations
         mapView?.getMapboxMap()?.loadStyleUri(
             Style.MAPBOX_STREETS
         ) { doAnnotations() }
     }
 
     private fun doAnnotations() {
+        if (isPointAnno){
+            var bitmap : Bitmap? = BitmapFactory.decodeResource(resources, R.drawable.red_marker_png)
 
-        var bitmap : Bitmap? = BitmapFactory.decodeResource(resources, R.drawable.red_marker_png)
+            val pointAnnotationMan : PointAnnotationManager? =
+                mapView?.let { annotationApi?.createPointAnnotationManager(it)}
 
-        val  annotationApi: AnnotationPlugin? = mapView?.annotations
-//
-        val pointAnnotationMan : PointAnnotationManager? =
-            mapView?.let { annotationApi?.createPointAnnotationManager(it)}
-
-        if (bitmap != null) {
-            val pointAnnoOptions: PointAnnotationOptions =
-                PointAnnotationOptions().withPoint(fromLngLat(18.06, 59.31))
-                    .withIconImage(bitmap)
-            pointAnnotationMan?.create(pointAnnoOptions)
+            if (bitmap != null) {
+                val pointAnnoOptions: PointAnnotationOptions =
+                    PointAnnotationOptions().withPoint(fromLngLat(18.06, 59.31))
+                        .withIconImage(bitmap)
+                pointAnnotationMan?.create(pointAnnoOptions)
 //            Toast.makeText(this, "bitmap used", Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(this, "bitmap is blank", Toast.LENGTH_SHORT).show()
+            }
+
+            Toast.makeText(this, "Red Marker Initialized", Toast.LENGTH_SHORT).show()
+        }else if (isCircleAnno){
+            // for circle annotation
+            val circleAnnotationManager = mapView?.let { annotationApi?.createCircleAnnotationManager(it) }
+            val circleAnnotationOptions: CircleAnnotationOptions = CircleAnnotationOptions()
+                .withPoint(fromLngLat(18.06, 59.31))
+                .withCircleRadius(8.0)
+                .withCircleColor("#ee4e8b")
+                .withCircleStrokeWidth(2.0)
+                .withCircleStrokeColor("#F10707")
+            circleAnnotationManager?.create(circleAnnotationOptions)
+            Toast.makeText(this, "Circle Marker Initialized", Toast.LENGTH_SHORT).show()
         }else{
-            Toast.makeText(this, "bitmap is blank", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Markers off", Toast.LENGTH_SHORT).show()
         }
-
-        // for circle annotation
-
-        val circleAnnotationManager = mapView?.let { annotationApi?.createCircleAnnotationManager(it) }
-        val circleAnnotationOptions: CircleAnnotationOptions = CircleAnnotationOptions()
-            .withPoint(fromLngLat(18.06, 59.31))
-            .withCircleRadius(8.0)
-            .withCircleColor("#ee4e8b")
-            .withCircleStrokeWidth(2.0)
-            .withCircleStrokeColor("#F10707")
-        circleAnnotationManager?.create(circleAnnotationOptions)
-
     }
 
     override fun onRequestPermissionsResult(
@@ -122,16 +128,38 @@ class MainActivity : AppCompatActivity() {
             R.id.style2 -> changeStyle(Style.DARK)
             R.id.style3 -> changeStyle(Style.TRAFFIC_DAY)
             R.id.style4 -> changeStyle(Style.OUTDOORS)
+            R.id.isPoint -> isPointSwitch()
+            R.id.isCircle -> isCircleSwitch()
+            R.id.none -> switchOff()
             else -> return super.onOptionsItemSelected(item)
         }
         return true
 
+    }
+    private fun isPointSwitch() {
+        isPointAnno = !isPointAnno
+        isCircleAnno = false
+        doAnnotations()
+
+    }
+
+    private fun isCircleSwitch() {
+        isCircleAnno = !isCircleAnno
+        isPointAnno = false
+        doAnnotations()
+    }
+
+    private fun switchOff() {
+        isPointAnno = false
+        isCircleAnno = false
+        doAnnotations()
     }
 
     private fun changeStyle(style: String) {
         mapView?.getMapboxMap()?.loadStyleUri(
             style
         )
+        Toast.makeText(this, "Style Changed Successfully", Toast.LENGTH_SHORT).show()
 
     }
 
