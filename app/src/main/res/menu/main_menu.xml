@@ -2,24 +2,57 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/style1"
+        android:id="@+id/marker"
 
-        android:title="Streets">
+        android:title="Marker">
+
+        <menu>
+            <item
+                android:id="@+id/isPoint"
+
+                android:title="Red Mark">
+            </item>
+            <item
+                android:id="@+id/isCircle"
+
+                android:title="Circle">
+            </item>
+            <item
+                android:id="@+id/none"
+
+                android:title="None">
+            </item>
+        </menu>
     </item>
+
     <item
-        android:id="@+id/style2"
+        android:id="@+id/style"
 
-        android:title="Dark">
-    </item>
-    <item
-        android:id="@+id/style3"
+        android:title="Styles">
+        <menu>
+            <item
+                android:id="@+id/style1"
 
-        android:title="Traffic">
-    </item>
-    <item
-        android:id="@+id/style4"
+                android:title="Streets">
+            </item>
+            <item
+                android:id="@+id/style2"
 
-        android:title="Outdoor">
+                android:title="Dark">
+            </item>
+            <item
+                android:id="@+id/style3"
+
+                android:title="Traffic">
+            </item>
+            <item
+                android:id="@+id/style4"
+
+                android:title="Outdoor">
+            </item>
+        </menu>
     </item>
+
+
 
 </menu>
