@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/marker"
@@ -16,11 +17,6 @@
                 android:id="@+id/isCircle"
 
                 android:title="Circle">
-            </item>
-            <item
-                android:id="@+id/none"
-
-                android:title="None">
             </item>
         </menu>
     </item>
@@ -51,6 +47,13 @@
                 android:title="Outdoor">
             </item>
         </menu>
+    </item>
+    <item
+        android:id="@+id/viewAnno"
+        android:icon="@drawable/ic_baseline_desktop_mac_24"
+        android:title="View Anno"
+        app:showAsAction="ifRoom">
+
     </item>
 
 
