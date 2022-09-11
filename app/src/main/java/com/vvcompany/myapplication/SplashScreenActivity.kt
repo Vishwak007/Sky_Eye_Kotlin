@@ -16,23 +16,14 @@ class SplashScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
         Objects.requireNonNull(supportActionBar)?.hide()
-//        image = findViewById(R.id.splash_screen_id);
-//        linearLayout = findViewById(R.id.ss_ll);
-//        linearLayout.setVisibility(View.INVISIBLE);
-//        Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), android.R.anim.fade_out);
-//        animation.setDuration(1000);
-//        Animation animation1 = AnimationUtils.loadAnimation(getApplicationContext(), android.R.anim.fade_in);
-//        animation1.setDuration(1500);
-
         imageView = findViewById(R.id.splash_screen_id)
-//        imageView?.setBackgroundColor(R.color.black)
 
         val animationOut: Animation =
             AnimationUtils.loadAnimation(applicationContext, android.R.anim.fade_out)
-        animationOut.duration(1500)
+        animationOut.duration(2000)
         val animationIn: Animation =
             AnimationUtils.loadAnimation(applicationContext, android.R.anim.fade_in)
-        animationIn.duration(1500)
+        animationIn.duration(2000)
 
         animationOut.setAnimationListener(object : Animation.AnimationListener {
             override fun onAnimationStart(p0: Animation?) {
@@ -40,7 +31,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
             override fun onAnimationEnd(p0: Animation?) {
 
-                imageView?.setImageResource(R.drawable.logowhite)
+                imageView?.setImageResource(R.drawable.logo1)
                 animationIn.setAnimationListener(object : Animation.AnimationListener {
                     override fun onAnimationStart(p0: Animation?) {
                     }
